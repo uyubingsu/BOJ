@@ -1,0 +1,25 @@
+import java.io.*
+fun  main(){
+    val br= BufferedReader(InputStreamReader(System.`in`))
+    val bw= BufferedWriter(OutputStreamWriter(System.out))
+    val stb= StringBuilder()
+    val str=br.readLine()
+    val bomb=br.readLine()
+
+    for (i in 0 until  str.length) {
+        stb.append(str[i])
+        if (stb.length>=bomb.length) {
+            if (stb.substring(stb.length-bomb.length, stb.length)==bomb) {
+                stb.delete(stb.length-bomb.length, stb.length)
+            }
+        }
+    }
+    if (stb.toString().isEmpty()){
+        bw.write("FRULA")
+    }
+    else bw.write("$stb")
+
+    bw.flush()
+    bw.close()
+    br.close()
+}
