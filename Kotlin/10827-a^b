@@ -1,0 +1,11 @@
+import java.io.*
+import java.util.*
+fun main() {
+    val br=BufferedReader(InputStreamReader(System.`in`))
+    val bw=BufferedWriter(OutputStreamWriter(System.out))
+    val tkn= StringTokenizer(br.readLine())
+    val a=tkn.nextToken().toBigDecimal()
+    val b=tkn.nextToken().toInt()
+    bw.write("${(a.pow(b)).toPlainString()}")
+    bw.flush()
+}
