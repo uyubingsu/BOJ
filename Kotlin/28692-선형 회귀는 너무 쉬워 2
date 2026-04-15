@@ -1,0 +1,40 @@
+import java.util.*
+import java.io.*
+import kotlin.math.*
+fun  main(){
+    val br= BufferedReader(InputStreamReader(System.`in`))
+    val bw= BufferedWriter(OutputStreamWriter(System.out))
+    var tkn= StringTokenizer(br.readLine())
+    val n=tkn.nextToken().toLong()
+    val b=tkn.nextToken().toLong()
+    var x=0L
+    var y=0L
+    for (i in 1..n) {
+        tkn= StringTokenizer(br.readLine())
+        x+=tkn.nextToken().toLong()
+        y+=tkn.nextToken().toLong()
+    }
+    if (x==0L) bw.write("EZPZ")
+    else {
+
+        val bny = (y - (b * n))
+        val gcd = gcd(abs(bny), abs(x))
+        if (bny%x==0L) {
+            bw.write("${bny/x}")
+        }
+        else if (x>0) {
+            bw.write("${bny/gcd}/${x/gcd}")
+        }
+        else {
+            bw.write("${(bny/gcd)*-1}/${abs(x)/gcd}")
+        }
+
+    }
+    bw.flush()
+    bw.close()
+    br.close()
+}
+fun gcd(a: Long, b: Long): Long {
+    return if (b!=0.toLong()) gcd(b, a%b)
+    else return a
+}
