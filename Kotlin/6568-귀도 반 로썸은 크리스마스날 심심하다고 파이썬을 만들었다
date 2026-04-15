@@ -1,0 +1,54 @@
+import java.io.*
+fun main() {
+    val br=BufferedReader(InputStreamReader(System.`in`))
+    val bw=BufferedWriter(OutputStreamWriter(System.out))
+    loop@ while(true) {
+        val mem= IntArray(32){0}
+        var pc=0
+        var cnt=0
+        for (i in 0..31){
+            val str=br.readLine()
+            if (str.isNullOrBlank()) {
+                break@loop
+            }
+            mem[i]=str.toInt(2)
+        }
+
+        loop2@ while(true) {
+
+            val cmd=mem[pc]/32
+            val op=mem[pc]%32
+            pc=(pc+1)%32
+            when (cmd) {
+                0 -> {
+                    mem[op]=cnt
+                }
+                1 -> {
+                    cnt=mem[op]
+                }
+                2 -> {
+                    if (cnt==0) pc=op
+
+                }
+                3 -> {
+                    continue
+                }
+                4 -> {
+                    cnt=(cnt+255)%256
+                }
+                5 -> {
+                    cnt=(cnt+1)%256
+                }
+                6 -> {
+                    pc=op
+                }
+                7 -> {
+                    break@loop2
+                }
+            }
+
+        }
+        bw.write("${Integer.toBinaryString(cnt).padStart(8,'0')}\n")
+    }
+    bw.flush()
+}
