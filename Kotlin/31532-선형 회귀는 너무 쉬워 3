@@ -1,0 +1,39 @@
+import java.io.*
+import java.math.*
+
+var p=0.toBigInteger()
+var q=0.toBigInteger()
+var r=0.toBigInteger()
+var s=0.toBigInteger()
+fun main() {
+    val br=BufferedReader(InputStreamReader(System.`in`))
+    val bw=BufferedWriter(OutputStreamWriter(System.out))
+    val (n,b)=br.readLine().split(' ').map{it.toInt()}
+
+    repeat(n) {
+        val (x,y)=br.readLine().split(' ').map{it.toBigInteger()}
+        val bmy=b.toBigInteger()-y
+
+        p+=x*x*x
+        q+=x*x*bmy
+        r+=x*(bmy*bmy)
+        s+=bmy*bmy*bmy
+    }
+    var lo= (-1000000000).toBigDecimal()
+    var hi=1000000000.toBigDecimal()
+    var mid=0.toBigDecimal()
+    repeat(10000){
+        mid=(lo+hi).divide(2.toBigDecimal(),50, RoundingMode.HALF_EVEN)
+        if (sum(mid)>0.toBigDecimal()) {
+            hi=mid
+        }
+        else {
+            lo=mid
+        }
+    }
+    bw.write("$mid")
+    bw.flush()
+}
+fun sum(a: BigDecimal) : BigDecimal {
+    return ((a*a*a)*p.toBigDecimal())+(3.toBigDecimal()*a*a*q.toBigDecimal())+(3.toBigDecimal()*a*r.toBigDecimal())+s.toBigDecimal()
+}
